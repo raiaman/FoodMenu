@@ -1,0 +1,479 @@
+[
+    {
+        "header": "Falooda",
+        "items": [
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Royal Falooda",
+                "Half": 0,
+                "Full": 90,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Kesar Falooda",
+                "Half": 0,
+                "Full": 100,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Special Dry Fruit Falooda ",
+                "Half": 0,
+                "Full": 150,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Badam Pista Falooda",
+                "Half": 0,
+                "Full": 140,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Khas Falooda",
+                "Half": 0,
+                "Full": 100,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Strawberry Falooda",
+                "Half": 0,
+                "Full": 100,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Butter Scotch Falooda",
+                "Half": 0,
+                "Full": 100,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Chocolate Falooda",
+                "Half": 0,
+                "Full": 100,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Pineapple Falooda",
+                "Half": 0,
+                "Full": 100,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Pineapple Falooda",
+                "Half": 0,
+                "Full": 100,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Mango Falooda",
+                "Half": 0,
+                "Full": 125,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Gadbad Falooda",
+                "Half": 0,
+                "Full": 180,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Maharaja Falooda",
+                "Half": 190,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Kashmiri Falooda",
+                "Half": 130,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Special Kulfi Falooda",
+                "Half": 180,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Royal Kulfi Falooda",
+                "Half": 150,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Kulfi Falooda (Malai / Badam / Kesar)",
+                "Half": 0,
+                "Full": 120,
+                "count1": 0,
+                "count2": 0
+            }
+        ]
+    },
+    {
+        "header": "COOLERS",
+        "items": [
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Kokum (Sharbat)",
+                "Half": 0,
+                "Full": 60,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Lemon Juice",
+                "Half": 40,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Fresh Lime Soda",
+                "Half": 0,
+                "Full": 60,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Mineral Water",
+                "Half": 0,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Jeera Soda",
+                "Half": 50,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Ginger Lemon Juice",
+                "Half": 70,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Lemon Ice Tea",
+                "Half": 0,
+                "Full": 60,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Kala Khatta",
+                "Half": 0,
+                "Full": 50,
+                "count1": 0,
+                "count2": 0
+            }
+        ]
+    },
+    {
+        "header": "FRUIT SALAD",
+        "items": [
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Fruit Salad ",
+                "Half": 75,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Fruit Salad with Ice Cream",
+                "Half": 110,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Special Fruit Salad with Ice Cream ",
+                "Half": 150,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Kokum (Sharbat)",
+                "Half": 0,
+                "Full": 60,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Fruit Salad with Cream",
+                "Half": 0,
+                "Full": 140,
+                "count1": 0,
+                "count2": 0
+            }
+        ]
+    },
+    {
+        "header": "FRESH FRUIT CREAM",
+        "items": [
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Mix Fruit Cream",
+                "Half": 150,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Sitaphal Cream",
+                "Half": 160,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Kokum (Sharbat)",
+                "Half": 0,
+                "Full": 60,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Strawberry Cream (Seasonal)",
+                "Half": 160,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Dry Fruit Cream",
+                "Half": 200,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Mango Cream (Seasonal)",
+                "Half": 150,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Banana & Apple Cream",
+                "Half": 140,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            }
+        ]
+    },
+    {
+        "header": "BLOSSOM",
+        "items": [
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Mango Blossom",
+                "Half": 0,
+                "Full": 160,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Orange",
+                "Half": 0,
+                "Full": 90,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Mix Fruit Cream",
+                "Half": 150,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Mosambi",
+                "Half": 90,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Pineapple Blossom",
+                "Half": 90,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Sitaphal Blossom",
+                "Half": 150,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Watermelon Blossom",
+                "Half": 90,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Anaar Blossom",
+                "Half": 0,
+                "Full": 110,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Apple & Grapes Blossom",
+                "Half": 0,
+                "Full": 110,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Blue Lagoon",
+                "Half": 100,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Coconut Cooler",
+                "Half": 0,
+                "Full": 120,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Strawberry Anjeer",
+                "Half": 130,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            }
+        ]
+    },
+    {
+        "header": "ICE CREAM SCOOP",
+        "items": [
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "ICE CREAM SCOOP",
+                "Half": 60,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            }
+        ]
+    },
+    {
+        "header": "DESSERT",
+        "items": [
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "DESSERT(Extra Ice Cream Scoop)",
+                "Half": 30,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Choco Lava Cake",
+                "Half": 0,
+                "Full": 80,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Red Velvet Brownie",
+                "Half": 110,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Chocolate Brownie",
+                "Half": 100,
+                "Full": 0,
+                "count1": 0,
+                "count2": 0
+            },
+            {
+                "imgsrc": "images/ice_cream.jpeg",
+                "name": "Sizzling Brownie with Ice Cream (Choice of Brownie)",
+                "Half": 0,
+                "Full": 180,
+                "count1": 0,
+                "count2": 0
+            }
+
+        ]
+    }
+
+]

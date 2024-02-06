@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { trigger, transition, style, animate } from '@angular/animations';
 
@@ -58,6 +58,17 @@ export class AppComponent implements OnInit {
         console.error(error);
       }
     );
+
+    // http.get<MenuDetails[]>('./assets/juiceNdesert.json').subscribe(
+    //   result => {
+    //     this.menulist = result;
+    //     this.menulistData = result;
+    //     this.populateForm();
+    //   },
+    //   error => {
+    //     console.error(error);
+    //   }
+    // );
   }
 
   populateForm() {
@@ -99,8 +110,6 @@ export class AppComponent implements OnInit {
 
   closePopup() {
     this.displayStyle = "none";
-    this.formValues = null;
-    this.myForm.controls['table'].setValue('');
   }
 
   addToCart() {
@@ -132,20 +141,40 @@ export class AppComponent implements OnInit {
         })
       };
 
-      this.http.post('https://localhost:7104/api/Order/Post', dataToSend, httpOptions).subscribe(
+      this.http.post('https://localhost:7104/api/Order/Post/AddOrder', dataToSend, httpOptions).subscribe(
         response => {
           this.openSnackBar('Order placed successfully!', 'X');
           const menulistFormArray = this.myForm.get('menulist') as FormArray;
           menulistFormArray.clear();
           this.menulist = this.menulistData;
         },
-        error => {
+        error => {    
+          // Clear the selected items count
+          this.clearSelectedItemsCount();          
           this.openSnackBar('Order Failed. Please contact Hotel Staff!', 'X');
         }
       );
-    } else {
+    } 
+    else {
       this.openSnackBar('Token Expired! Please contact Admin.', 'X');
     }
+  }
+
+  clearSelectedItemsCount() {
+    const menulistFormArray = this.myForm.get('menulist') as FormArray;
+    menulistFormArray.controls.forEach((menuFormGroup: AbstractControl) => {
+      if (menuFormGroup instanceof FormGroup) {
+        const itemsFormArray = menuFormGroup.get('items') as FormArray;
+        itemsFormArray.controls.forEach((itemFormGroup: AbstractControl) => {
+          if (itemFormGroup instanceof FormGroup) {
+            (itemFormGroup.get('count1') as FormControl).setValue(0);
+            (itemFormGroup.get('count2') as FormControl).setValue(0);
+          }
+        });
+      }
+    });
+    this.formValues = this.myForm.value;
+    this.generateOrderItems();
   }
 
   filterMenuItems() {
@@ -254,20 +283,23 @@ export class AppComponent implements OnInit {
 
   generateOrderItems() {
     this.orderItems = [];
-    for (const section of this.formValues.menulist) {
-      for (const item of section.items) {
-        if (item.count1 > 0 || item.count2 > 0) {
-          this.orderItems.push({
-            name: item.name,
-            size1: item.count1,
-            size2: item.count2
-          });
+    // Check if 'menulist' is not null
+    if (this.formValues.menulist) {
+      for (const section of this.formValues.menulist) {
+        for (const item of section.items) {
+          if (item.count1 > 0 || item.count2 > 0) {
+            this.orderItems.push({
+              name: item.name,
+              full: item.count1,
+              half: item.count2
+            });
+          }
         }
       }
-    }
-    var itemCount = 0;
+  
+      var itemCount = 0;
       this.orderItems.forEach(item => {
-        itemCount += item.size1 + item.size2;
+        itemCount += item.full + item.half;
       });
       const cartTotalNoControl = this.myForm.get('cartTotalGroup.cartTotalNo');
       if (cartTotalNoControl) {
@@ -275,7 +307,9 @@ export class AppComponent implements OnInit {
       } else {
         this.myForm.get('cartTotalGroup.cartTotalNo')?.setValue(itemCount);
       }
+    }
   }
+  
 }
 
 interface MenuItem {

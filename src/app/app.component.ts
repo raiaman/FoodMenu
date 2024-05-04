@@ -17,6 +17,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
     ]),
   ],
 })
+
 export class AppComponent implements OnInit {
   public currentCount = 0;
   myForm: FormGroup;
@@ -25,10 +26,13 @@ export class AppComponent implements OnInit {
   formValues: any;
   displayStyle: string = 'none';
   tables: number[] = [1, 2, 3, 4, 5, 6];
+  menus: string[] = ['JUICE_DESERT','PIZZA','SANDWICH','BREAKFAST','BURGER_ROLL','CHINESE','ICECREAM'];
+  menuColors: string[] = ['#28a745', '#ffc107', '#EA596E','#17a2b8', '#0054A4', '#939598', '#ED1C24'];
   orderItems: any[] = [];
   selectedTable: any;
   searchTerm = new FormControl('');
   isLoading: boolean = true;
+  showNoDataLabel: FormControl = new FormControl('');
 
   ngOnInit() {
     setTimeout(() => {
@@ -48,7 +52,7 @@ export class AppComponent implements OnInit {
       menulistData: this.formBuilder.array([])
     });
 
-    http.get<MenuDetails[]>('./assets/chinese.json').subscribe(
+    http.get<MenuDetails[]>('./assets/juice_desert.json').subscribe(
       result => {
         this.menulist = result;
         this.menulistData = result;
@@ -58,18 +62,8 @@ export class AppComponent implements OnInit {
         console.error(error);
       }
     );
-
-    // http.get<MenuDetails[]>('./assets/juiceNdesert.json').subscribe(
-    //   result => {
-    //     this.menulist = result;
-    //     this.menulistData = result;
-    //     this.populateForm();
-    //   },
-    //   error => {
-    //     console.error(error);
-    //   }
-    // );
   }
+
 
   populateForm() {
     const menulistFormArray = this.myForm.get('menulist') as FormArray;
@@ -112,6 +106,17 @@ export class AppComponent implements OnInit {
     this.displayStyle = "none";
   }
 
+  openCart() {
+    this.formValues = this.myForm.value;
+    this.displayStyle = 'none';
+    this.generateOrderItems();
+    if (this.orderItems.length > 0) {
+      this.displayStyle = 'block';
+    } else {
+      this.openSnackBar('Please select items to add to the cart!', 'X');
+    }
+  }
+
   addToCart() {
     this.formValues = this.myForm.value;
     this.displayStyle = 'none';
@@ -121,6 +126,67 @@ export class AppComponent implements OnInit {
     } else {
       this.openSnackBar('Please select items to add to the cart!', 'X');
     }
+  }
+
+  generateOrderItems() {    
+    if (this.orderItems.length == 0) {
+      this.showNoDataLabel.setValue('No Items!');
+      this.myForm.get('table')?.disable();
+      // table: [this.tables[0]];
+    } else {
+      this.showNoDataLabel.setValue('');
+      this.myForm.get('table')?.enable();
+    }
+
+    this.orderItems = [];
+    // Check if 'menulist' is not null
+    if (this.formValues.menulist && (!this.orderItems || this.orderItems.length === 0)) {
+      for (const section of this.formValues.menulist) {
+        for (const item of section.items) {
+          if (item.count1 > 0 || item.count2 > 0) {
+            this.orderItems.push({
+              name: item.name,
+              full: item.count1,
+              half: item.count2
+            });
+          }
+        }
+      }
+
+      var itemCount = 0;
+      this.orderItems.forEach(item => {
+        itemCount += item.full + item.half;
+      });
+      const cartTotalNoControl = this.myForm.get('cartTotalGroup.cartTotalNo');
+      if (cartTotalNoControl) {
+        cartTotalNoControl.setValue(itemCount);
+      } else {
+        this.myForm.get('cartTotalGroup.cartTotalNo')?.setValue(itemCount);
+      }
+    }
+  }
+
+  deleteItem(menu: MenuDetails, item: any) {
+    const menulistFormArray = this.myForm.get('menulist') as FormArray;
+    menulistFormArray.controls.forEach((menuFormGroup: AbstractControl) => {
+        if (menuFormGroup instanceof FormGroup && menuFormGroup.value === menu) {
+            const itemsFormArray = menuFormGroup.get('items') as FormArray;
+            const itemIndex = itemsFormArray.controls.findIndex(control => control.value.name === item.name);
+            if (itemIndex !== -1) {
+                const itemFormGroup = itemsFormArray.controls[itemIndex] as FormGroup;
+                itemFormGroup.get('count1')?.setValue(0);
+                itemFormGroup.get('count2')?.setValue(0);
+            }
+        }
+    });
+    //Remove the item from the menu's items array
+    menu.items = menu.items.filter(i => i !== item);
+
+    //Remove the item from orderItems array based on name and count
+    this.orderItems = this.orderItems.filter(orderItem => !(orderItem.name === item.name && orderItem.full === item.count1 && orderItem.half === item.count2));
+
+    this.formValues = this.myForm.value;
+    this.generateOrderItems();    
   }
 
   placeOrder() {
@@ -148,13 +214,13 @@ export class AppComponent implements OnInit {
           menulistFormArray.clear();
           this.menulist = this.menulistData;
         },
-        error => {    
+        error => {
           // Clear the selected items count
-          this.clearSelectedItemsCount();          
+          this.clearSelectedItemsCount();
           this.openSnackBar('Order Failed. Please contact Hotel Staff!', 'X');
         }
       );
-    } 
+    }
     else {
       this.openSnackBar('Token Expired! Please contact Admin.', 'X');
     }
@@ -280,36 +346,6 @@ export class AppComponent implements OnInit {
     this.formValues = this.myForm.value;
     this.generateOrderItems();
   }
-
-  generateOrderItems() {
-    this.orderItems = [];
-    // Check if 'menulist' is not null
-    if (this.formValues.menulist) {
-      for (const section of this.formValues.menulist) {
-        for (const item of section.items) {
-          if (item.count1 > 0 || item.count2 > 0) {
-            this.orderItems.push({
-              name: item.name,
-              full: item.count1,
-              half: item.count2
-            });
-          }
-        }
-      }
-  
-      var itemCount = 0;
-      this.orderItems.forEach(item => {
-        itemCount += item.full + item.half;
-      });
-      const cartTotalNoControl = this.myForm.get('cartTotalGroup.cartTotalNo');
-      if (cartTotalNoControl) {
-        cartTotalNoControl.setValue(itemCount);
-      } else {
-        this.myForm.get('cartTotalGroup.cartTotalNo')?.setValue(itemCount);
-      }
-    }
-  }
-  
 }
 
 interface MenuItem {

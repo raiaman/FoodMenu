@@ -538,50 +538,50 @@
     "header": "MOJITO MOCKTAIL",
     "items": [
         {
-            "imgsrc": "images/ice_cream.jpeg",
+            "imgsrc": "dCappuccino.jpg",
             "name": "Blue Berry",
-            "Half": 90,
-            "Full": 0,
+            "price1": 90,
+            "price2": 0,
             "count1": 0,
             "count2": 0
         },
         {
-            "imgsrc": "images/ice_cream.jpeg",
+            "imgsrc": "dCappuccino.jpg",
             "name": "Kiwi",
-            "Half": 90,
-            "Full": 0,
+            "price1": 90,
+            "price2": 0,
             "count1": 0,
             "count2": 0
         },
         {
-            "imgsrc": "images/ice_cream.jpeg",
+            "imgsrc": "dCappuccino.jpg",
             "name": "Lemon",
-            "Half": 90,
-            "Full": 0,
+            "price1": 90,
+            "price2": 0,
             "count1": 0,
             "count2": 0
         },
         {
-            "imgsrc": "images/ice_cream.jpeg",
+            "imgsrc": "dCappuccino.jpg",
             "name": "Green Apple",
-            "Half": 90,
-            "Full": 0,
+            "price1": 90,
+            "price2": 0,
             "count1": 0,
             "count2": 0
         },
         {
-            "imgsrc": "images/ice_cream.jpeg",
+            "imgsrc": "dCappuccino.jpg",
             "name": "Strawberry",
-            "Half": 90,
-            "Full": 0,
+            "price1": 90,
+            "price2": 0,
             "count1": 0,
             "count2": 0
         },
         {
-            "imgsrc": "images/ice_cream.jpeg",
+            "imgsrc": "dCappuccino.jpg",
             "name": "Watermelon",
-            "Half": 90,
-            "Full": 0,
+            "price1": 90,
+            "price2": 0,
             "count1": 0,
             "count2": 0
         }

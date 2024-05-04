@@ -12,26 +12,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 10vh;
+      height: 6vh;
       margin-top: 4px;
       margin-bottom: 4px;
       border-radius: 50px;
-    }
-
-    .row .badge:nth-child(even) {
-      background-color: #28a745 !important;
-    }
-
-    .row .badge:nth-child(odd) {
-      background-color: #ffc107 !important;
-    }
-
-    .row .badge:nth-child(3n + 1) {
-      background-color: #dc3545 !important;
-    }
-
-    .row .badge:nth-child(3n + 2) {
-      background-color: #17a2b8 !important;
     }
 
     .noBullet>ul li {
@@ -187,30 +171,20 @@
     <ng-template #content>
       <!-- CART -->
       <div formGroupName="cartTotalGroup">
-      <button type="button" class="btn btn-light modal-close-button btn-sm">
-        <mat-icon>shopping_basket</mat-icon>
+      <button type="button" class="btn btn-light modal-close-button btn-sm" (click)="openCart()">
+        <mat-icon>shopping_cart</mat-icon>
         <span id="cartTotalNo" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
           {{ myForm.get('cartTotalGroup.cartTotalNo')?.value??0 }}
         </span>
       </button>
     </div>
 
-      <!-- Display the menu options -->
-      <div class="row m-2">
-        <div class="badge col-lg-4 col-md-4 col-6">
-          <h5>CHINESE</h5>
-        </div>
-        <div class="badge col-lg-4 col-md-4 col-6">
-          <h5>FAST FOOD</h5>
-        </div>
-        <div class="badge col-lg-4 col-md-4 col-6">
-          <h5>JUICES & DESSERT</h5>
-        </div>
-        <div class="badge col-lg-4 col-md-4 col-6">
-          <h5>COMBO</h5>
-        </div>
+    <div class="row m-2">
+      <div class="badge col-lg-4 col-md-4 col-6" *ngFor="let menu of menus; let i = index" [ngStyle]="{'background-color': menuColors[i]}">
+        <h5>{{ menu }}</h5>
       </div>
-
+    </div>
+    
       <!-- Display the menu items -->
       <div *ngIf="menulist.length > 0; else noDataBlock" formArrayName="menulist" style="padding-bottom: 60px;">
         <div *ngFor="let menu of menulist; let menuIndex = index" [formGroupName]="menuIndex" style=" padding: 10px;
@@ -301,8 +275,9 @@
                           <ng-container *ngIf="item.count1 && item.count2"> and </ng-container>
                           <ng-container *ngIf="item.count2 > 0">Half Portion: {{ item.count2 }}</ng-container>
                         </td>
-                        <td>
-                          <button mat-fab color="accent" aria-label="Delete" style="margin: 4px;">
+                        <td style="float: right; margin: 4px;">
+                          <button mat-fab color="accent" aria-label="Delete" style="vertical-align: middle; margin: 0;"
+                           (click)="deleteItem(menu, item)">
                             <mat-icon>delete</mat-icon>
                           </button>
                         </td>
@@ -311,7 +286,9 @@
                   </li>
                 </ul>
               </div>
+              <p *ngIf="showNoDataLabel.value === 'No Items!'" id="showNoDataLabel" style="text-align: center; font-size:22px; color: #C8102E; width:100%;">No Items!</p>
             </div>
+
             <div class="modal-footer">
               <span style="font-size:12px;  color: #C8102E;width:100%;" *ngIf="!myForm.valid">Please select table no to
                 place order</span>
@@ -319,8 +296,10 @@
                 <option value="" disabled>-- Select Table No --</option>
                 <option *ngFor="let table of tables" [value]="table">Table No {{ table }}</option>
               </select>
-              <button [disabled]="!myForm.valid" type="button" style="width:45%;" class="btn btn-success"
-                (click)="placeOrder()">Place Order</button>
+              <!-- <button [disabled]="!myForm.valid" type="button" style="width:45%;" class="btn btn-success"
+                (click)="placeOrder()">Place Order</button> -->
+                <button [disabled]="!orderItems.length || !myForm.get('table')?.value" type="button" 
+                 style="width:45%;" class="btn btn-success" (click)="placeOrder()">Place Order</button>
             </div>
           </div>
         </div>
@@ -329,7 +308,7 @@
     <ng-template #noDataBlock>
       <div style="text-align: center;">
         <p class="error-text">Oops!</p>
-        <p class="info-text">We could not understand what you mean, try rephrasing the query.</p>
+        <p class="info-text">No items found.</p>
       </div>
     </ng-template>
   </form>

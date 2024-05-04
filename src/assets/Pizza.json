@@ -3,50 +3,42 @@
         "header": "Pizza classic",
         "items": [
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Classic pizza",
-                "Half(8'')": 90,
-                "Full(10'')": 120,
+                "price1": 90,
+                "price2": 120,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
-                "name": "Classic pizza",
-                "Half(8'')": 90,
-                "Full(10'')": 120,
-                "count1": 0,
-                "count2": 0
-            },
-            {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Cheese Pizza",
-                "Half(8'')": 120,
-                "Full(10'')": 220,
+                "price1": 120,
+                "price2": 220,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Margarita(Pizza Sauce, Tomato & Cheese)",
-                "Half(8'')": 130,
-                "Full(10'')": 260,
+                "price1": 130,
+                "price2": 260,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Golden Corn Pizza(Pizza Sauce, Corn & Cheese)",
-                "Half(8'')": 130,
-                "Full(10'')": 260,
+                "price1": 130,
+                "price2": 260,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Capsicum Tomato Pizza(Pizza Sauce, Capsicum, Tomato & Cheese)",
-                "Half(8'')": 140,
-                "Full(10'')": 280,
+                "price1": 140,
+                "price2": 280,
                 "count1": 0,
                 "count2": 0
             }
@@ -56,42 +48,42 @@
         "header": "Pizza Supreme",
         "items": [
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Barbeque Bonanza(Pizza Sauce, Capsicum, Onion, Paneer, Corn, Cheese)",
-                "Half(8'')": 170,
-                "Full(10'')": 270,
+                "price1": 170,
+                "price2": 270,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Mexican Fiesta(Pizza Sauce, Capsicum, Onion, Jalapeno, Cheese)",
-                "Half(8'')": 170,
-                "Full(10'')": 120,
+                "price1": 170,
+                "price2": 120,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Wild West(Pizza Sauce, Mushroom, Onion, Tomato, Capsicum, Corn, Olive, Cheese)",
-                "Half(8'')": 170,
-                "Full(10'')": 270,
+                "price1": 170,
+                "price2": 270,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Paneer Tikka(Pizza Sauce, Paneer Tikka, Onion, Capsicum, Coriander, Cheese)",
-                "Half(8'')": 190,
-                "Full(10'')": 290,
+                "price1": 190,
+                "price2": 290,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Peri Peri Paneer Pizza(Pizza Sauce, Paneer, Bell Pepper, Peri Peri Masala)",
-                "Half(8'')": 190,
-                "Full(10'')": 290,
+                "price1": 190,
+                "price2": 290,
                 "count1": 0,
                 "count2": 0
             }
@@ -101,50 +93,50 @@
         "header": "Pizza Exotic",
         "items": [
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Veg Gourmet(Pizza Sauce, Paneer, Capsicum, Onion, Cheese)",
-                "Half(8'')": 180,
-                "Full(10'')": 280,
+                "price1": 180,
+                "price2": 280,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Paneer Chilly(Pizza Sauce, Paneer, Capsicum, Onion, Chilly, Cheese)",
-                "Half(8'')": 190,
-                "Full(10'')": 290,
+                "price1": 190,
+                "price2": 290,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Barbeque Bonanza(Pizza Sauce, Capsicum, Onion, Paneer, Corn, Cheese)",
-                "Half(8'')": 170,
-                "Full(10'')": 270,
+                "price1": 170,
+                "price2": 270,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Barbeque Bonanza(Pizza Sauce, Capsicum, Onion, Paneer, Corn, Cheese)",
-                "Half(8'')": 170,
-                "Full(10'')": 270,
+                "price1": 170,
+                "price2": 270,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Grill N Shakes Special(Pizza Sauce, Mushroom, Baby Corn, Bell Peppers, Broccoli, Olive, Capsicum, Onion, Cheese)",
-                "Half(8'')": 220,
-                "Full(10'')": 350,
+                "price1": 220,
+                "price2": 350,
                 "count1": 0,
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "name": "Bread Pizza",
-                "Half(8'')": 110,
-                "Full(10'')": 0,
+                "price1": 110,
+                "price2": 0,
                 "count1": 0,
                 "count2": 0
             }
@@ -154,7 +146,7 @@
         "header": "Combo",
         "items": [
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "title" :"Combo-1",
                 "name": "Classic Pizza 8”(Choose any 1) +Classic French Fries + Mojito (Choose any 1 flavour)",
                 "price1": 180,
@@ -163,7 +155,7 @@
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "title" :"Combo-2",
                 "name": "Supreme Pizza 8” (Choose any 1) +Penne Pasta (Choose any 1) +Mojito (Choose any 1 flavour) ",
                 "price1": 460,
@@ -172,7 +164,7 @@
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "title" :"Combo-3",
                 "name": "Penne Pasta (Choose any 1) + Soup (Choose any 1) + Drink of your Choice (Any 1 flavour Mojito / Cold Coffee) ",
                 "price1": 370,
@@ -181,7 +173,7 @@
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "Title" :"Combo-4",
                 "name": "Veg Cheese Grilled +Classic French Fries + Drink of your Choice (Any 1 flavour Mojito / Cold Coffee)",
                 "price1": 300,
@@ -190,7 +182,7 @@
                 "count2": 0
             },
             {
-                "imgsrc": "images/ice_cream.jpeg",
+                "imgsrc": "dCappuccino.jpg",
                 "Title" :"Combo-5",
                 "name": "Burger (Choose any 1)+Classic French Fries + Drink of your Choice (Any 1 flavour Mojito / Cold Coffee) ",
                 "price1": 240,

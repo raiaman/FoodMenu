@@ -180,8 +180,8 @@
     </div>
 
     <div class="row m-2">
-      <div class="badge col-lg-4 col-md-4 col-6" *ngFor="let menu of menus; let i = index" [ngStyle]="{'background-color': menuColors[i]}">
-        <h5>{{ menu }}</h5>
+      <div class="badge col-lg-4 col-md-4 col-6" *ngFor="let menu of menus; let i = index" [ngStyle]="{'background-color': menuColors[i]}" (click)="loadMenu(menu)">
+        <h5>{{ formatMenu(menu) }}</h5>
       </div>
     </div>
     
@@ -246,7 +246,7 @@
       <!-- Add to Cart button -->
       <button class="add-to-cart-button" mat-icon-button (click)="addToCart()">
         <mat-icon>shopping_cart</mat-icon>
-        <span>Add to Cart</span>
+        <span>View Cart</span>
       </button>
 
       <!-- Display order details in a Modal -->

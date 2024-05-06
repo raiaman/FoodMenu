@@ -26,18 +26,22 @@ export class AppComponent implements OnInit {
   formValues: any;
   displayStyle: string = 'none';
   tables: number[] = [1, 2, 3, 4, 5, 6];
-  menus: string[] = ['JUICE_DESERT','PIZZA','SANDWICH','BREAKFAST','BURGER_ROLL','CHINESE','ICECREAM'];
+  menus: string[] = ['chinese', 'pizza', 'sandwich', 'breakfast', 'burger_rolls', 'juice_desert', 'icecream'];
   menuColors: string[] = ['#28a745', '#ffc107', '#EA596E','#17a2b8', '#0054A4', '#939598', '#ED1C24'];
   orderItems: any[] = [];
   selectedTable: any;
   searchTerm = new FormControl('');
   isLoading: boolean = true;
   showNoDataLabel: FormControl = new FormControl('');
+  defaultMenu: string='';
+  private cartState: any = {};
 
   ngOnInit() {
     setTimeout(() => {
       this.isLoading = false;
     }, 2000);
+    this.defaultMenu = this.menus[0];
+    this.loadMenu(this.defaultMenu);
   }
 
   constructor(private renderer: Renderer2, private formBuilder: FormBuilder, private http: HttpClient, private _snackBar: MatSnackBar) {
@@ -51,12 +55,17 @@ export class AppComponent implements OnInit {
       menulist: this.formBuilder.array([]),
       menulistData: this.formBuilder.array([])
     });
-
-    http.get<MenuDetails[]>('./assets/juice_desert.json').subscribe(
+  }
+  
+  loadMenu(menu: string) {
+    const fileName = `./assets/${menu}.json`;
+    this.http.get<MenuDetails[]>(fileName).subscribe(
       result => {
+        this.storeCartState();
         this.menulist = result;
         this.menulistData = result;
         this.populateForm();
+        this.restoreCartState();
       },
       error => {
         console.error(error);
@@ -64,6 +73,9 @@ export class AppComponent implements OnInit {
     );
   }
 
+  formatMenu(menu: string): string {
+    return menu.replace(/_/g, ' AND ').toUpperCase();
+  }
 
   populateForm() {
     const menulistFormArray = this.myForm.get('menulist') as FormArray;
@@ -89,6 +101,23 @@ export class AppComponent implements OnInit {
         });
         menulistFormArray.push(menuFormGroup);
       });
+    }
+  }
+
+  // Method to store the state of the cart and counts
+  private storeCartState() {
+    this.cartState = {
+      items: this.orderItems.slice(),
+      formValues: this.myForm.value
+    };
+  }
+
+  // Method to restore the state of the cart and counts
+  private restoreCartState() {
+    if (this.cartState.items && this.cartState.formValues) {
+      this.orderItems = this.cartState.items.slice();
+      this.myForm.patchValue(this.cartState.formValues);
+      this.generateOrderItems();
     }
   }
 
@@ -137,10 +166,8 @@ export class AppComponent implements OnInit {
       this.showNoDataLabel.setValue('');
       this.myForm.get('table')?.enable();
     }
-
     this.orderItems = [];
-    // Check if 'menulist' is not null
-    if (this.formValues.menulist && (!this.orderItems || this.orderItems.length === 0)) {
+    if (this.formValues && this.formValues.menulist && (!this.orderItems || this.orderItems.length === 0)) {
       for (const section of this.formValues.menulist) {
         for (const item of section.items) {
           if (item.count1 > 0 || item.count2 > 0) {
@@ -152,7 +179,6 @@ export class AppComponent implements OnInit {
           }
         }
       }
-
       var itemCount = 0;
       this.orderItems.forEach(item => {
         itemCount += item.full + item.half;

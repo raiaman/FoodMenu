@@ -61,11 +61,11 @@ export class AppComponent implements OnInit {
     const fileName = `./assets/${menu}.json`;
     this.http.get<MenuDetails[]>(fileName).subscribe(
       result => {
-        this.storeCartState();
+        // this.storeCartState();
         this.menulist = result;
         this.menulistData = result;
         this.populateForm();
-        this.restoreCartState();
+        // this.restoreCartState();
       },
       error => {
         console.error(error);

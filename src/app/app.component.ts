@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,31 +20,39 @@ import { trigger, transition, style, animate } from '@angular/animations';
 
 export class AppComponent implements OnInit {
   public currentCount = 0;
+  tableNo: number | undefined;
   myForm: FormGroup;
   menulist: MenuDetails[] = [];
   menulistData: MenuDetails[] = [];
   formValues: any;
-  displayStyle: string = 'none';
+  displayModal: string = 'none';
+  isDisplayMessages: boolean = false;
+  isDropdownHighlighted: boolean = false;
   tables: number[] = [1, 2, 3, 4, 5, 6];
-  menus: string[] = ['chinese', 'pizza', 'sandwich', 'breakfast', 'burger_rolls', 'juice_desert', 'icecream'];
-  menuColors: string[] = ['#28a745', '#ffc107', '#EA596E','#17a2b8', '#0054A4', '#939598', '#ED1C24'];
+  menus: string[] = ['chinese', 'pizza', 'sandwich', 'breakfast', 'burger_rolls', 'juices_icecream_dessert'];
+  menuColors: string[] = ['#28a745', '#ffc107', '#EA596E', '#17a2b8', '#ED1C24', '#d094ea'];//, '#0054A4', '#939598'
   orderItems: any[] = [];
-  selectedTable: any;
+  selectedTable: any = 0;
   searchTerm = new FormControl('');
   isLoading: boolean = true;
   showNoDataLabel: FormControl = new FormControl('');
-  defaultMenu: string='';
+  defaultMenu: string = '';
   private cartState: any = {};
+  displayedHeaders: string[] = [];
+  alertMessage: string = '';
 
-  ngOnInit() {
+  @ViewChild('menulistRef') menulistRef!: ElementRef;
+
+  ngOnInit(): void {
+    this.loadMenu();
     setTimeout(() => {
       this.isLoading = false;
+      // Manually trigger change detection
+      // this.cdr.detectChanges();
     }, 2000);
-    this.defaultMenu = this.menus[0];
-    this.loadMenu(this.defaultMenu);
   }
 
-  constructor(private renderer: Renderer2, private formBuilder: FormBuilder, private http: HttpClient, private _snackBar: MatSnackBar) {
+  constructor(private renderer: Renderer2, private formBuilder: FormBuilder, private http: HttpClient, private _snackBar: MatSnackBar, private cdr: ChangeDetectorRef) {
     this.renderer.setStyle(document.body, 'background-color', '#222223');
     this.renderer.setStyle(document.body, 'color', '#FFFFFF');
     this.myForm = this.formBuilder.group({
@@ -56,16 +64,32 @@ export class AppComponent implements OnInit {
       menulistData: this.formBuilder.array([])
     });
   }
-  
-  loadMenu(menu: string) {
-    const fileName = `./assets/${menu}.json`;
+
+  shouldDisplayHeader(header: string): boolean {
+    const category = this.getCategoryFromHeader(header);
+    const shouldDisplay = !this.displayedHeaders.includes(category);
+    if (shouldDisplay) {
+      this.displayedHeaders.push(category);
+    }
+    return shouldDisplay;
+  }
+
+  getCategoryFromHeader(header: string): string {
+    if (header.includes('|')) {
+      return header.split('|')[1].trim().toUpperCase();
+    }
+    return header.toUpperCase();
+  }
+
+  loadMenu() {
+    const fileName = `./assets/menuItems.json`;
     this.http.get<MenuDetails[]>(fileName).subscribe(
       result => {
-        // this.storeCartState();
+        this.storeCartState();
         this.menulist = result;
         this.menulistData = result;
         this.populateForm();
-        // this.restoreCartState();
+        this.restoreCartState();
       },
       error => {
         console.error(error);
@@ -73,8 +97,26 @@ export class AppComponent implements OnInit {
     );
   }
 
+  navigateMenu(menu: string) {
+    this.displayedHeaders = [];
+    const category = this.getCategoryFromHeader(menu);
+    const element = document.getElementById(category);
+    if (element) {
+      // Calculate the scroll position with margin
+      const offset = 120; // Adjust this value as needed
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition - offset;
+      const currentScroll = window.scrollY;
+      const scrollToPosition = currentScroll + offsetPosition;
+      window.scrollTo({
+        top: scrollToPosition,
+        behavior: 'smooth'
+      });
+    }
+  }
+
   formatMenu(menu: string): string {
-    return menu.replace(/_/g, ' AND ').toUpperCase();
+    return menu.replace(/_/g, ' & ').toUpperCase();
   }
 
   populateForm() {
@@ -122,42 +164,45 @@ export class AppComponent implements OnInit {
   }
 
   onTableSelectionChange(event: any) {
+    this.displayedHeaders = [];
     this.selectedTable = event.target.value;
+    this.isDropdownHighlighted = false;
   }
 
-  openSnackBar(message: string, type: string) {
-    this._snackBar.open(message, 'Close', {
-      duration: 3000
-    });
+  onDropdownBlur() {
+    this.displayedHeaders = [];
   }
+
+  // openSnackBar(message: string, type: string) {
+  //   this._snackBar.open(message, 'Close', {
+  //     duration: 3000
+  //   });
+  // }
 
   closePopup() {
-    this.displayStyle = "none";
+    this.displayedHeaders = [];
+    this.displayModal = "none";
+    this.isDropdownHighlighted = false;
+    this.isDisplayMessages = false;
+    this.selectedTable = 0;
   }
 
   openCart() {
     this.formValues = this.myForm.value;
-    this.displayStyle = 'none';
+    this.displayModal = 'none';
     this.generateOrderItems();
+    this.displayModal = 'block';
     if (this.orderItems.length > 0) {
-      this.displayStyle = 'block';
+      this.isDisplayMessages = false;
     } else {
-      this.openSnackBar('Please select items to add to the cart!', 'X');
+      this.isDisplayMessages = true;
+      this.alertMessage = 'Please select items to add to the cart!';
+      // this.openSnackBar('Please select items to add to the cart!', 'X');
     }
   }
 
-  addToCart() {
-    this.formValues = this.myForm.value;
-    this.displayStyle = 'none';
-    this.generateOrderItems();
-    if (this.orderItems.length > 0) {
-      this.displayStyle = 'block';
-    } else {
-      this.openSnackBar('Please select items to add to the cart!', 'X');
-    }
-  }
-
-  generateOrderItems() {    
+  generateOrderItems() {
+    this.displayedHeaders = [];
     if (this.orderItems.length == 0) {
       this.showNoDataLabel.setValue('No Items!');
       this.myForm.get('table')?.disable();
@@ -195,15 +240,15 @@ export class AppComponent implements OnInit {
   deleteItem(menu: MenuDetails, item: any) {
     const menulistFormArray = this.myForm.get('menulist') as FormArray;
     menulistFormArray.controls.forEach((menuFormGroup: AbstractControl) => {
-        if (menuFormGroup instanceof FormGroup && menuFormGroup.value === menu) {
-            const itemsFormArray = menuFormGroup.get('items') as FormArray;
-            const itemIndex = itemsFormArray.controls.findIndex(control => control.value.name === item.name);
-            if (itemIndex !== -1) {
-                const itemFormGroup = itemsFormArray.controls[itemIndex] as FormGroup;
-                itemFormGroup.get('count1')?.setValue(0);
-                itemFormGroup.get('count2')?.setValue(0);
-            }
+      if (menuFormGroup instanceof FormGroup && menuFormGroup.value === menu) {
+        const itemsFormArray = menuFormGroup.get('items') as FormArray;
+        const itemIndex = itemsFormArray.controls.findIndex(control => control.value.name === item.name);
+        if (itemIndex !== -1) {
+          const itemFormGroup = itemsFormArray.controls[itemIndex] as FormGroup;
+          itemFormGroup.get('count1')?.setValue(0);
+          itemFormGroup.get('count2')?.setValue(0);
         }
+      }
     });
     //Remove the item from the menu's items array
     menu.items = menu.items.filter(i => i !== item);
@@ -212,43 +257,59 @@ export class AppComponent implements OnInit {
     this.orderItems = this.orderItems.filter(orderItem => !(orderItem.name === item.name && orderItem.full === item.count1 && orderItem.half === item.count2));
 
     this.formValues = this.myForm.value;
-    this.generateOrderItems();    
+    this.generateOrderItems();
   }
 
   placeOrder() {
-    this.displayStyle = "none";
-    this.formValues = null;
-    this.myForm.controls['table'].setValue('');
-    const dataToSend = {
-      selectedTable: this.selectedTable,
-      userName: 'Grill_N_Shakes',
-      orderItems: this.orderItems
-    };
-    const jwtToken = 'your_jwt_token_here';
-    if (jwtToken) {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${jwtToken}`
-        })
+    this.displayedHeaders = [];
+    this.tableNo = this.selectedTable;
+    if (this.tableNo !== undefined && this.tableNo > 0) {
+      this.isDropdownHighlighted = false;
+      this.isDisplayMessages = true;
+      this.selectedTable = 0;
+      // this.displayModal = "none";
+      this.formValues = null;
+      this.myForm.controls['table'].setValue('');
+      const dataToSend = {
+        selectedTable: this.tableNo,
+        userName: 'Grill_N_Shakes',
+        orderItems: this.orderItems
       };
+      const jwtToken = 'your_jwt_token_here';
+      if (jwtToken) {
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+          })
+        };
 
-      this.http.post('https://localhost:7104/api/Order/Post/AddOrder', dataToSend, httpOptions).subscribe(
-        response => {
-          this.openSnackBar('Order placed successfully!', 'X');
-          const menulistFormArray = this.myForm.get('menulist') as FormArray;
-          menulistFormArray.clear();
-          this.menulist = this.menulistData;
-        },
-        error => {
-          // Clear the selected items count
-          this.clearSelectedItemsCount();
-          this.openSnackBar('Order Failed. Please contact Hotel Staff!', 'X');
-        }
-      );
+        this.http.post('https://localhost:7104/api/Order/Post/AddOrder', dataToSend, httpOptions).subscribe(
+          response => {
+            // Clear the selected items count
+            this.clearSelectedItemsCount();
+            this.alertMessage = 'Order placed successfully!';
+            // this.openSnackBar('Order placed successfully!', 'X');
+            // const menulistFormArray = this.myForm.get('menulist') as FormArray;
+            // menulistFormArray.clear();
+            // this.menulist = this.menulistData;
+          },
+          error => {
+            // Clear the selected items count
+            this.clearSelectedItemsCount();
+            this.alertMessage = 'Order Failed! Please contact Hotel Staff.';
+            // this.openSnackBar('Order Failed. Please contact Hotel Staff!', 'X');
+          }
+        );
+      }
+      else {
+        this.alertMessage = 'Token Expired! Please contact Admin.';
+        // this.openSnackBar('Token Expired! Please contact Admin.', 'X');
+      }
     }
     else {
-      this.openSnackBar('Token Expired! Please contact Admin.', 'X');
+      this.isDisplayMessages = false;
+      this.isDropdownHighlighted = true;
     }
   }
 
@@ -270,6 +331,7 @@ export class AppComponent implements OnInit {
   }
 
   filterMenuItems() {
+    this.displayedHeaders = [];
     const filteredMenu: MenuDetails[] = [];
     const searchTermValue = this.searchTerm?.value?.toLowerCase();
     if (searchTermValue) {

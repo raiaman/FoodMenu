@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <style>
     html,
@@ -7,22 +8,88 @@
       color: white;
     }
 
+    #Messages {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+
+    .alert-message {
+      font-size: 14px;
+      color: #C8102E;
+      background-color: #fff4f4;
+      border: 1px solid #c8102e;
+      padding: 10px 20px;
+      margin: 10px 20px;
+      border-radius: 5px;
+      text-align: center;
+      width: fit-content;
+    }
+
+    .form-control.ddl.highlighted {
+      border: 2px solid yellow;
+    }
+
+    .sticky-badges {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background-color: #222223;
+      padding: 10px 0;
+      width: 100%;
+    }
+
+    .sticky-badges .row {
+      margin-right: 0;
+    }
+
     .row .badge {
       text-wrap: wrap;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 6vh;
-      margin-top: 4px;
+      height: 3.5vh;
       margin-bottom: 4px;
       border-radius: 50px;
+    }
+
+    .add-to-cart-button {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1001;
+      /* Increased z-index */
+      border-radius: 5px;
+      background-color: rgba(25, 135, 84, 0.5);
+      /* Ensure 50% transparency */
+      display: inline-flex;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      white-space: nowrap;
+      width: 160px;
+      font-weight: 500;
+      font-size: 20px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .add-to-cart-button span {
+      margin-left: 5px;
+    }
+
+    h6 {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 12px;
     }
 
     .noBullet>ul li {
       list-style-type: none;
     }
 
-    /* Center the spinner using absolute positioning */
     .spinner-container {
       position: absolute;
       top: 50%;
@@ -31,7 +98,6 @@
       text-align: center;
     }
 
-    /* Spinner styles (same as before) */
     .spinner {
       width: 50px;
       height: 50px;
@@ -41,7 +107,6 @@
       animation: spin 2s linear infinite;
     }
 
-    /* Spinner animation keyframes (same as before) */
     @keyframes spin {
       0% {
         transform: rotate(0deg);
@@ -86,6 +151,7 @@
       right: 10px;
       margin-bottom: 20px;
       cursor: pointer;
+      z-index: 1000;
     }
 
     .modal-title-header {
@@ -101,29 +167,6 @@
       border: 2px solid #CF142B;
       background-color: #CF142B;
       color: white
-    }
-
-    .add-to-cart-button {
-      position: fixed;
-      bottom: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-      border-radius: 5px;
-      background-color: rgba(25, 135, 84, 0.8);
-      display: inline-flex;
-      align-items: center;
-      color: white;
-      text-decoration: none;
-      white-space: nowrap;
-      width: 160px;
-      font-weight: 500;
-      font-size: 20px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .add-to-cart-button span {
-      margin-left: 5px;
     }
 
     .rounded-circle {
@@ -153,17 +196,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Restaurant welcome message -->
     <div class="alert alert-success" style="background-color: #004E42; color: #cff4fc;">
-      <h4 class="alert-heading">Welcome to Grill N Shakes</h4>
-      <p>“Indulge in Culinary Excellence to Savor Every Bite, Cherish Every Moment”</p>
+      <h4 class="alert-heading">Grill N Shakes</h4>
+      <!-- <p>“Indulge in Culinary Excellence to Savor Every Bite, Cherish Every Moment”</p>
       <hr>
-      <p class="mb-0">Life's too short for boring food.</p>
+      <p class="mb-0">Life's too short for boring food.</p> -->
     </div>
+
     <!-- Search the menu items -->
-    <div style="margin: 5px;">
+    <!-- <div style="margin: 5px;">
       <input type="text" class="search-input" placeholder="Search Item..." [formControl]="searchTerm"
         (keyup)="filterMenuItems()" />
     </div>
-    
+     -->
+
     <div class="spinner-container" *ngIf="isLoading; else content">
       <div class="spinner"></div>
     </div>
@@ -171,57 +216,74 @@
     <ng-template #content>
       <!-- CART -->
       <div formGroupName="cartTotalGroup">
-      <button type="button" class="btn btn-light modal-close-button btn-sm" (click)="openCart()">
-        <mat-icon>shopping_cart</mat-icon>
-        <span id="cartTotalNo" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          {{ myForm.get('cartTotalGroup.cartTotalNo')?.value??0 }}
-        </span>
-      </button>
-    </div>
-
-    <div class="row m-2">
-      <div class="badge col-lg-4 col-md-4 col-6" *ngFor="let menu of menus; let i = index" [ngStyle]="{'background-color': menuColors[i]}" (click)="loadMenu(menu)">
-        <h5>{{ formatMenu(menu) }}</h5>
+        <button type="button" class="btn btn-light modal-close-button btn-sm" (click)="openCart()">
+          <mat-icon>shopping_cart</mat-icon>
+          <span id="cartTotalNo"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ myForm.get('cartTotalGroup.cartTotalNo')?.value??0 }}
+          </span>
+        </button>
       </div>
-    </div>
-    
+
+      <!-- Sticky badges row -->
+      <div class="sticky-badges">
+        <div class="row m-2">
+          <div class="badge col-lg-4 col-md-4 col-6" *ngFor="let menu of menus; let i = index"
+            [ngStyle]="{'background-color': menuColors[i]}" (click)="navigateMenu(menu)">
+            <h6>{{ formatMenu(menu) }}</h6>
+          </div>
+        </div>
+      </div>
+
       <!-- Display the menu items -->
       <div *ngIf="menulist.length > 0; else noDataBlock" formArrayName="menulist" style="padding-bottom: 60px;">
-        <div *ngFor="let menu of menulist; let menuIndex = index" [formGroupName]="menuIndex" style=" padding: 10px;
-        margin-right:10px;">
-          <!-- Menu header -->
+        <ng-container *ngFor="let menu of menulist; let menuIndex = index" [formGroupName]="menuIndex"
+          style="padding: 10px; margin-right:10px;">
+
+          <ng-container *ngIf="menu.header">
+            <ng-container *ngIf="shouldDisplayHeader(menu.header)">
+              <h2 class="main-header" [id]="getCategoryFromHeader(menu.header)"
+                style="color: #382E2C; background-color: whitesmoke; padding: 10px;">
+                {{ getCategoryFromHeader(menu.header) }}
+              </h2>
+            </ng-container>
+          </ng-container>
+
+          <!-- Subcategory header -->
           <h3 class="list-group-item list-group-item-warning d-flex justify-content-between align-items-center"
-            style="color: #F5E1A4;background-color: #382E2C;">{{ menu.header }}</h3>
+            style="color: #F5E1A4; background-color: #382E2C;">
+            <span>{{ menu.header.split('|')[0].trim() }}</span>
+          </h3>
+
           <div formArrayName="items">
             <!-- Display individual menu items -->
             <div *ngFor="let item of menu.items; let itemIndex = index" [formGroupName]="itemIndex"
               class="d-flex justify-content-between align-items-center row"
               [ngStyle]="{'border-bottom': itemIndex !== menu.items.length - 1 ? '1px solid #796E65' : 'none'}">
+
               <!-- Display menu item details -->
               <div class="d-flex align-items-center" style="width:50%">
                 <img src="https://img.mobiscroll.com/demos/{{item.imgsrc}}" alt="" class="rounded-circle" />
                 <h5 class="ms-3 mb-1" style="font-size: 16px">{{item.name}}</h5>
               </div>
-              <div style="width:50%;text-align:left;">
+
+              <div style="width:50%; text-align:left;">
                 <!-- Full Portion -->
                 <div class="row" *ngIf="item.price1 && item.price1 != '00'">
-                  <div style="width:40%; font-size: 14px;vertical-align:text-bottom">
+                  <div style="width:40%; font-size: 14px; vertical-align:text-bottom">
                     <div class="row fa" style="vertical-align: bottom;">Full &#xf156; {{item.price1}}</div>
                   </div>
                   <div style="width:60%; font-size: 22px;">
                     <span class="material-icons circle-background" style="width:25px; height:25px;"
                       (click)="decrementCounter1(menuIndex, itemIndex)">remove</span>
-
                     <input
-                      style="width:40%;vertical-align:bottom;text-align: center;pointer-events:none;color: white;background-color: #222223;"
+                      style="width:40%; vertical-align:bottom; text-align: center; pointer-events:none; color: white; background-color: #222223;"
                       type="text" class="border-0" formControlName="count1" value="{{ item.count1 }}">
-
                     <span class="material-icons circle-background" style="width:25px; height:25px;"
                       (click)="incrementCounter1(menuIndex, itemIndex)">add</span>
-                    <div>
-                    </div>
                   </div>
                 </div>
+
                 <!-- Half Portion -->
                 <div class="row" *ngIf="item.price2 && item.price2 != '00'">
                   <div style="width:40%; font-size:14px">
@@ -231,7 +293,7 @@
                     <span class="material-icons circle-background" style="width:25px; height:25px;"
                       (click)="decrementCounter2(menuIndex, itemIndex)">remove</span>
                     <input
-                      style="width: 40%;vertical-align:bottom;text-align: center;pointer-events:none;color: white;background-color: #222223;"
+                      style="width: 40%; vertical-align:bottom; text-align: center; pointer-events:none; color: white; background-color: #222223;"
                       type="text" class="border-0" formControlName="count2" value="{{ item.count2 }}">
                     <span class="material-icons circle-background" style="width:25px; height:25px;"
                       (click)="incrementCounter2(menuIndex, itemIndex)">add</span>
@@ -240,22 +302,31 @@
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
 
       <!-- Add to Cart button -->
-      <button class="add-to-cart-button" mat-icon-button (click)="addToCart()">
+      <button type="button" class="add-to-cart-button" mat-icon-button (click)="openCart()">
         <mat-icon>shopping_cart</mat-icon>
         <span>View Cart</span>
       </button>
+    </ng-template>
 
-      <!-- Display order details in a Modal -->
-      <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayStyle}" *ngIf="formValues">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <!-- Close button icon on top right -->
-            <button type="button" class="btn-close modal-close-button" aria-label="Close"
-              (click)="closePopup()"></button>
+    <ng-template #noDataBlock>
+      <div style="text-align: center;">
+        <p class="error-text">Oops!</p>
+        <p class="info-text">No items found.</p>
+      </div>
+    </ng-template>
+
+    <!-- Display order details in a Modal -->
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayModal}" *ngIf="formValues">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Close button icon on top right -->
+          <button type="button" class="btn-close modal-close-button" aria-label="Close" (click)="closePopup()"></button>
+
+          <div id="OrderLists" *ngIf="!isDisplayMessages">
             <div class="modal-header" style="padding-top:40px">
               <!-- Title and table selection -->
               <h4 class="modal-title list-group-item list-group-item-warning modal-title-header" style="color:#FF6A39">
@@ -276,8 +347,8 @@
                           <ng-container *ngIf="item.count2 > 0">Half Portion: {{ item.count2 }}</ng-container>
                         </td>
                         <td style="float: right; margin: 4px;">
-                          <button mat-fab color="accent" aria-label="Delete" style="vertical-align: middle; margin: 0;"
-                           (click)="deleteItem(menu, item)">
+                          <button type="button" mat-fab color="accent" aria-label="Delete"
+                            style="vertical-align: middle; margin: 0;" (click)="deleteItem(menu, item)">
                             <mat-icon>delete</mat-icon>
                           </button>
                         </td>
@@ -286,31 +357,34 @@
                   </li>
                 </ul>
               </div>
-              <p *ngIf="showNoDataLabel.value === 'No Items!'" id="showNoDataLabel" style="text-align: center; font-size:22px; color: #C8102E; width:100%;">No Items!</p>
+              <p *ngIf="showNoDataLabel.value === 'No Items!'" id="showNoDataLabel"
+                style="text-align: center; font-size:22px; color: #C8102E; width:100%;">No Items!</p>
             </div>
-
             <div class="modal-footer">
-              <span style="font-size:12px;  color: #C8102E;width:100%;" *ngIf="!myForm.valid">Please select table no to
-                place order</span>
-              <select class="form-control ddl" formControlName="table" (change)="onTableSelectionChange($event)">
+              <span style="font-size:12px; color: #C8102E; width:100%;" *ngIf="isDropdownHighlighted">
+                Please select table no to place order
+              </span>
+              <select [ngClass]="{'highlighted': isDropdownHighlighted}" class="form-control ddl"
+                formControlName="table" (blur)="onDropdownBlur()" (change)="onTableSelectionChange($event)">
                 <option value="" disabled>-- Select Table No --</option>
                 <option *ngFor="let table of tables" [value]="table">Table No {{ table }}</option>
               </select>
               <!-- <button [disabled]="!myForm.valid" type="button" style="width:45%;" class="btn btn-success"
-                (click)="placeOrder()">Place Order</button> -->
-                <button [disabled]="!orderItems.length || !myForm.get('table')?.value" type="button" 
-                 style="width:45%;" class="btn btn-success" (click)="placeOrder()">Place Order</button>
+              (click)="placeOrder()">Place Order</button> -->
+              <button [disabled]="!orderItems.length" type="button" style="width:45%;" class="btn btn-success"
+                (click)="placeOrder()">Place Order</button>
             </div>
           </div>
+
+          <div id="Messages">
+            <span class="alert-message" *ngIf="isDisplayMessages">
+              {{ alertMessage }}
+            </span>
+          </div>
+
         </div>
       </div>
-    </ng-template>
-    <ng-template #noDataBlock>
-      <div style="text-align: center;">
-        <p class="error-text">Oops!</p>
-        <p class="info-text">No items found.</p>
-      </div>
-    </ng-template>
+    </div>
   </form>
 </body>
 
